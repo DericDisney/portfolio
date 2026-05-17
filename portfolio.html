@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deric Disney | Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue: #1F4E79;
+      --light-blue: #2E75B6;
+      --accent: #00B4D8;
+      --bg: #f5f8fc;
+      --white: #ffffff;
+      --text: #222;
+      --gray: #666;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: var(--blue);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    nav .logo { color: #fff; font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; }
+    nav ul { list-style: none; display: flex; gap: 28px; }
+    nav ul li a { color: #cce4ff; text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    nav ul li a:hover { color: var(--accent); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--blue) 60%, var(--light-blue));
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 100px 20px 60px;
+    }
+    .hero-content { max-width: 700px; }
+    .avatar {
+      width: 120px; height: 120px; border-radius: 50%;
+      background: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem; font-weight: 700; color: #fff;
+      margin: 0 auto 24px;
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.15);
+    }
+    #hero h1 { font-size: 2.8rem; color: #fff; margin-bottom: 10px; }
+    #hero .tagline { font-size: 1.1rem; color: #a8d4f5; margin-bottom: 20px; }
+    #hero .desc { font-size: 1rem; color: #cce4ff; line-height: 1.7; margin-bottom: 32px; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      padding: 12px 28px; border-radius: 6px; font-size: 0.95rem;
+      font-weight: 600; text-decoration: none; transition: all 0.2s;
+      cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #0096c7; transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.5); }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+    /* SECTIONS */
+    section { padding: 80px 40px; max-width: 1000px; margin: 0 auto; }
+    .section-title {
+      font-size: 1.8rem; color: var(--blue); font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .section-line {
+      width: 50px; height: 4px; background: var(--accent);
+      border-radius: 2px; margin-bottom: 40px;
+    }
+
+    /* ABOUT */
+    #about p { font-size: 1rem; color: var(--gray); line-height: 1.8; margin-bottom: 16px; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 24px; }
+    .info-card {
+      background: var(--white); border-radius: 10px; padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center;
+    }
+    .info-card .num { font-size: 2rem; font-weight: 700; color: var(--light-blue); }
+    .info-card .label { font-size: 0.85rem; color: var(--gray); margin-top: 4px; }
+
+    /* SKILLS */
+    #skills { background: var(--white); max-width: 100%; padding: 80px 40px; }
+    #skills > * { max-width: 1000px; margin-left: auto; margin-right: auto; }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .skill-card {
+      background: var(--bg); border-radius: 10px; padding: 24px;
+      border-left: 4px solid var(--accent);
+    }
+    .skill-card h3 { color: var(--blue); margin-bottom: 12px; font-size: 1rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      background: #e0f0ff; color: var(--light-blue);
+      padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+    }
+
+    /* PROJECTS */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
+    .project-card {
+      background: var(--white); border-radius: 12px; padding: 28px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .project-icon { font-size: 2rem; margin-bottom: 14px; }
+    .project-card h3 { color: var(--blue); margin-bottom: 10px; font-size: 1.05rem; }
+    .project-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.6; flex: 1; margin-bottom: 16px; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .stack-tag {
+      background: #e8f4fd; color: var(--light-blue);
+      padding: 3px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;
+    }
+    .project-link {
+      color: var(--accent); font-size: 0.85rem; font-weight: 600;
+      text-decoration: none;
+    }
+    .project-link:hover { text-decoration: underline; }
+
+    /* CERTIFICATIONS */
+    #certifications { background: var(--white); max-width: 100%; padding: 80px 40px; }
+    #certifications > * { max-width: 1000px; margin-left: auto; margin-right: auto; }
+    .cert-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .cert-item {
+      background: var(--bg); padding: 20px; border-radius: 10px;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .cert-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .cert-item h4 { color: var(--blue); font-size: 0.9rem; margin-bottom: 4px; }
+    .cert-item p { color: var(--gray); font-size: 0.82rem; }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .contact-card {
+      background: var(--white); border-radius: 10px; padding: 24px;
+      text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      text-decoration: none; color: var(--text);
+      transition: transform 0.2s;
+    }
+    .contact-card:hover { transform: translateY(-3px); }
+    .contact-card .icon { font-size: 2rem; margin-bottom: 10px; }
+    .contact-card h4 { color: var(--blue); font-size: 0.9rem; margin-bottom: 4px; }
+    .contact-card p { color: var(--gray); font-size: 0.82rem; }
+
+    /* FOOTER */
+    footer {
+      background: var(--blue); color: #a8d4f5;
+      text-align: center; padding: 24px; font-size: 0.85rem;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 14px 20px; }
+      nav ul { gap: 16px; }
+      section { padding: 60px 20px; }
+      #hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">DD</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="avatar">DD</div>
+      <h1>Deric Disney</h1>
+      <p class="tagline">Electronics & Communication Engineering Student | Aspiring Software Developer</p>
+      <p class="desc">
+        A results-driven engineering undergraduate with hands-on experience in embedded systems,
+        Python development, machine learning, and web technologies. Passionate about building
+        real-world solutions through code.
+      </p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">View My Projects</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-title">About Me</div>
+    <div class="section-line"></div>
+    <p>
+      I am a B.Tech student in Electronics and Communication Engineering at FISAT, Kerala,
+      graduating in 2027. With a strong academic foundation (CGPA: 7.79) and hands-on project
+      experience, I am passionate about building solutions that bridge hardware and software.
+    </p>
+    <p>
+      I have worked on real-world projects using Arduino, Raspberry Pi, Python, and computer vision.
+      I am continuously improving my skills in software development, data structures, and AI/ML to
+      transition into IT services and software engineering.
+    </p>
+    <div class="info-grid">
+      <div class="info-card"><div class="num">7.79</div><div class="label">Current CGPA</div></div>
+      <div class="info-card"><div class="num">97%</div><div class="label">SSLC Score</div></div>
+      <div class="info-card"><div class="num">4+</div><div class="label">Projects Built</div></div>
+      <div class="info-card"><div class="num">4</div><div class="label">Certifications</div></div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" style="background:var(--white); max-width:100%; padding:80px 40px;">
+    <div style="max-width:1000px; margin:0 auto;">
+      <div class="section-title">Technical Skills</div>
+      <div class="section-line"></div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>Programming Languages</h3>
+          <div class="skill-tags">
+            <span class="tag">Python</span><span class="tag">C</span>
+            <span class="tag">C++</span><span class="tag">Java</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Web Technologies</h3>
+          <div class="skill-tags">
+            <span class="tag">HTML5</span><span class="tag">CSS3</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>AI & Machine Learning</h3>
+          <div class="skill-tags">
+            <span class="tag">Supervised Learning</span><span class="tag">Data Preprocessing</span>
+            <span class="tag">Prompt Engineering</span><span class="tag">LLMs</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Embedded Systems</h3>
+          <div class="skill-tags">
+            <span class="tag">Arduino</span><span class="tag">Raspberry Pi</span>
+            <span class="tag">ESP32</span><span class="tag">Embedded C</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Core CS Concepts</h3>
+          <div class="skill-tags">
+            <span class="tag">OOP</span><span class="tag">Data Structures</span>
+            <span class="tag">Algorithms</span><span class="tag">SQL</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Tools & Platforms</h3>
+          <div class="skill-tags">
+            <span class="tag">GitHub</span><span class="tag">VS Code</span>
+            <span class="tag">Google Colab</span><span class="tag">Arduino IDE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-title">Projects</div>
+    <div class="section-line"></div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-icon">🚨</div>
+        <h3>Emergency Tracking and Alert System</h3>
+        <p>Designed an emergency safety system using Arduino Nano with GPS and GSM modules to transmit real-time location via SMS during critical situations.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Arduino Nano</span>
+          <span class="stack-tag">GPS</span>
+          <span class="stack-tag">GSM</span>
+          <span class="stack-tag">Embedded C</span>
+        </div>
+        <a href="https://github.com/dericdisney/emergency-tracker" class="project-link" target="_blank">→ View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">📹</div>
+        <h3>Smart Surveillance and Patrol System</h3>
+        <p>Dual-module system with a Raspberry Pi surveillance camera and an autonomous ESP32 patrol robot. Includes computer vision, obstacle avoidance, and live video streaming.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Raspberry Pi</span>
+          <span class="stack-tag">ESP32</span>
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Computer Vision</span>
+          <span class="stack-tag">GStreamer</span>
+        </div>
+        <a href="https://github.com/dericdisney/smart-surveillance" class="project-link" target="_blank">→ View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🎓</div>
+        <h3>Student Grade Calculator</h3>
+        <p>Python console application that calculates subject-wise grades, GPA, and pass/fail status. Built with OOP principles, input validation, and clean code structure.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">OOP</span>
+        </div>
+        <a href="https://github.com/dericdisney/grade-calculator" class="project-link" target="_blank">→ View on GitHub</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon">🌐</div>
+        <h3>Personal Portfolio Website</h3>
+        <p>Responsive portfolio website built with HTML5, CSS3, and JavaScript to showcase projects, skills, and contact information. Version-controlled on GitHub.</p>
+        <div class="project-stack">
+          <span class="stack-tag">HTML5</span>
+          <span class="stack-tag">CSS3</span>
+          <span class="stack-tag">JavaScript</span>
+        </div>
+        <a href="https://github.com/dericdisney/portfolio" class="project-link" target="_blank">→ View on GitHub</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" style="background:var(--white); max-width:100%; padding:80px 40px;">
+    <div style="max-width:1000px; margin:0 auto;">
+      <div class="section-title">Certifications</div>
+      <div class="section-line"></div>
+      <div class="cert-list">
+        <div class="cert-item">
+          <div class="cert-icon">🏅</div>
+          <div>
+            <h4>NPTEL – C-Based VLSI Design</h4>
+            <p>VLSI design concepts, modeling, simulation using C.</p>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🏅</div>
+          <div>
+            <h4>NPTEL – Microprocessors and Microcontrollers</h4>
+            <p>Processor architecture, instruction sets, embedded applications.</p>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🤖</div>
+          <div>
+            <h4>Intel Unnati – Machine Learning (40 Hours)</h4>
+            <p>ML fundamentals, data preprocessing, model building.</p>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">💻</div>
+          <div>
+            <h4>Web Development Course</h4>
+            <p>HTML, CSS, JavaScript, and responsive web design.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-title">Contact Me</div>
+    <div class="section-line"></div>
+    <div class="contact-grid">
+      <a href="mailto:dericdisney@gmail.com" class="contact-card">
+        <div class="icon">✉️</div>
+        <h4>Email</h4>
+        <p>dericdisney@gmail.com</p>
+      </a>
+      <a href="tel:+916282411513" class="contact-card">
+        <div class="icon">📱</div>
+        <h4>Phone</h4>
+        <p>+91 6282411513</p>
+      </a>
+      <a href="https://www.linkedin.com/in/deric-disney-348a562b0" target="_blank" class="contact-card">
+        <div class="icon">💼</div>
+        <h4>LinkedIn</h4>
+        <p>linkedin.com/in/deric-disney</p>
+      </a>
+      <a href="https://github.com/dericdisney" target="_blank" class="contact-card">
+        <div class="icon">🐙</div>
+        <h4>GitHub</h4>
+        <p>github.com/dericdisney</p>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Deric Disney · Built with HTML, CSS & JavaScript</p>
+  </footer>
+
+  <script>
+    // Smooth active nav highlight
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav ul li a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 80) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? '#00B4D8' : '#cce4ff';
+      });
+    });
+  </script>
+
+</body>
+</html>
